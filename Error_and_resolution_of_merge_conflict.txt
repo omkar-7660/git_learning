@@ -1,0 +1,81 @@
+Sure! Let’s summarize what exactly happened, why the issue appeared, and how we resolved it step by step.
+
+🟦 The Issue
+
+You were on dev branch and made changes, including a Word file:
+
+origin_branching_and_how_it_works.docx
+
+
+You pushed dev to GitHub — everything fine on dev.
+
+Then you switched to main and tried to merge dev → main:
+
+git checkout main
+git merge dev
+
+
+Git gave this message:
+
+warning: Cannot merge binary files: origin_branching_and_how_it_works.docx (HEAD vs. dev)
+CONFLICT (add/add): Merge conflict in origin_branching_and_how_it_works.docx
+Automatic merge failed; fix conflicts and then commit the result.
+
+🟩 Why This Happened
+
+Git tried to merge dev into main automatically.
+
+The file origin_branching_and_how_it_works.docx is a binary file (Word document).
+
+Git cannot automatically merge binary files, unlike text files.
+
+Git reported a merge conflict because:
+
+Both branches (main and dev) have different versions of the same file
+
+Git doesn’t know which version to keep
+
+🟧 What We Did to Fix It
+
+Since you wanted to keep the dev version:
+
+Checked out the dev version of the file:
+
+git checkout --theirs origin_branching_and_how_it_works.docx
+
+
+Marked the conflict as resolved:
+
+git add origin_branching_and_how_it_works.docx
+
+
+Committed the merge:
+
+git commit -m "Merge dev into main, keep dev version of binary file"
+
+
+Pushed main to GitHub:
+
+git push origin main
+
+🟢 What This Achieved
+
+The main branch now contains all updates from dev.
+
+The Word file origin_branching_and_how_it_works.docx is exactly the version from dev.
+
+The conflict is resolved and the merge is complete.
+
+GitHub main branch is now in sync with dev.
+
+🔑 Key Takeaways
+
+Binary files can’t be auto-merged — always resolve manually.
+
+--theirs = keep the incoming branch (dev) version
+
+--ours = keep the current branch (main) version
+
+Always git add after resolving conflicts and then git commit.
+
+After merging, push to update the remote repo.
